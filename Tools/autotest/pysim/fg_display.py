@@ -59,7 +59,7 @@ def kt2mps(x):
 def mps2kt(x):
     return x / 0.514444444
 
-udp = udp_socket("127.0.0.1:5123")
+udp = udp_socket("127.0.0.1:5503")
 fgout = udp_socket("127.0.0.1:5124", is_input=False)
 
 tlast = time.time()
@@ -78,5 +78,5 @@ while True:
         tlast = time.time()
         print(fg.get('latitude', units='degrees'),
               fg.get('longitude', units='degrees'),
-              fg.get('altitude', units='meters'),
+              fg.get('agl', units='meters'),
               fg.get('vcas', units='mps'))

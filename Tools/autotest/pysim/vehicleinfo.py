@@ -208,6 +208,9 @@ class VehicleInfo(object):
             "ASWING": {
                 "waf_target": "bin/arduplane",
             },
+            "Z1": {
+                "waf_target": "bin/arduplane",
+            },
             "jsbsim": {
                 "waf_target": "bin/arduplane",
                 "default_params_filename": "default_params/plane-jsbsim.parm",
