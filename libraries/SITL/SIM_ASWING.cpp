@@ -1,7 +1,7 @@
 /**
  * @brief Simulator connection for ASWING
  * @date Created Jan 16, 2020
- * @author Bertrand Bevillard <bertrand.bevillard@gmail.com>
+ * @author Bertrand Bevillard <bertrand@zenithaero.com>
  */
 
 #include "SIM_ASWING.h"

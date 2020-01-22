@@ -478,6 +478,7 @@ bool SITL_State::parse_home(const char *home_str, Location &loc, float &yaw_degr
     loc.alt = static_cast<int32_t>(strtod(alt_s, nullptr) * 1.0e2);
 
     if (loc.lat == 0 && loc.lng == 0) {
+        printf("SET SIMULATOR STATE TO CMAC");
         // default to CMAC instead of middle of the ocean. This makes
         // SITL in MissionPlanner a bit more useful
         loc.lat = -35.363261*1e7;

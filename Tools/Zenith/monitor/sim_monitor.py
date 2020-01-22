@@ -51,9 +51,15 @@ class SimData:
         # Get variables
         self.VERSION_EXPECTED = 0
         self.getInt("version")
-        self.getDouble("longitude")
-        self.getDouble("latitude")
-        self.getDouble("altitude")
+        self.getDouble("pos_n")
+        self.getDouble("pos_e")
+        self.getDouble("pos_d")
+        self.getDouble("home_lat")
+        self.getDouble("home_lng")
+        self.getDouble("home_alt")
+        self.getDouble("lat")
+        self.getDouble("lng")
+        self.getDouble("alt")
         self.getFloat("agl")
         self.getFloat("phi")
         self.getFloat("theta")
@@ -100,20 +106,18 @@ class SimData:
 
 
 if __name__ == "__main__":
-    udp = UdpSocket("127.0.0.1:5504")
+    udp = UdpSocket("127.0.0.1:5507")
     tlast = time.time()
     while True:
         buf = udp.recv(1024)
         if time.time() - tlast > 1.0:
             data = SimData.parse(buf)
             print(
-                "long",
-                data["longitude"],
-                "lat",
-                data["latitude"],
-                "agl",
-                data["agl"],
-                "psi",
-                data["psi"],
+                "n",
+                data["pos_n"],
+                "e",
+                data["pos_e"],
+                "d",
+                data["pos_d"]
             )
             tlast = time.time()

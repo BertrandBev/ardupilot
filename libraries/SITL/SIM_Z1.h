@@ -1,7 +1,7 @@
 /**
  * @brief Z1 Simulator class
  * @date Created Jan 17, 2020
- * @author Bertrand Bevillard <bertrand.bevillard@gmail.com>
+ * @author Bertrand Bevillard <bertrand@zenithaero.com>
  */
 
 #pragma once

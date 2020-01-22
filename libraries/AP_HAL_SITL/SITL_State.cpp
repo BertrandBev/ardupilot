@@ -116,7 +116,7 @@ void SITL_State::_sitl_setup(const char *home_str)
         {
             fg_socket.connect(_fg_address, _fg_view_port);
         }
-        z3d_socket.connect("127.0.0.1", 5504); // TODO: Pull from command line
+        z3d_socket.connect("127.0.0.1", 5507); // TODO: Pull from command line
 
         fprintf(stdout, "Using Irlock at port : %d\n", _irlock_port);
         _sitl->irlock_port = _irlock_port;
@@ -593,12 +593,24 @@ void SITL_State::_output_to_Zenith3D(void)
 
     int32_t version = 0; // version
     bufSet(buf, &idx, version);
-    double longitude = DEG_TO_RAD_DOUBLE * state.longitude; // geodetic (radians)
-    bufSet(buf, &idx, longitude);
-    double latitude = DEG_TO_RAD_DOUBLE * state.latitude; // geodetic (radians)
-    bufSet(buf, &idx, latitude);
-    double altitude = state.altitude; // above sea level (meters)
-    bufSet(buf, &idx, altitude);
+    double pos_n = state.position.x;
+    bufSet(buf, &idx, pos_n);
+    double pos_e = state.position.y;
+    bufSet(buf, &idx, pos_e);
+    double pos_d = state.position.z;
+    bufSet(buf, &idx, pos_d);
+    double home_lat = state.home.lat * 1e-7;
+    bufSet(buf, &idx, home_lat);
+    double home_lng = state.home.lng * 1e-7;
+    bufSet(buf, &idx, home_lng);
+    double home_alt = state.home.alt * 0.01;
+    bufSet(buf, &idx, home_alt);
+    double lat = state.latitude;
+    bufSet(buf, &idx, lat);
+    double lng = state.longitude;
+    bufSet(buf, &idx, lng);
+    double alt = state.altitude; // above sea level (meters)
+    bufSet(buf, &idx, alt);
     float agl = state.altitude; // above ground level (meters)
     bufSet(buf, &idx, agl);
     float phi = radians(state.rollDeg); // roll (radians)
@@ -615,8 +627,6 @@ void SITL_State::_output_to_Zenith3D(void)
     bufSet(buf, &idx, rpm0);
     float rpm1 = constrain_float((pwm_output[5] - 1000) * 12, 0, 12000); // Motor 2 (rpm)
     bufSet(buf, &idx, rpm1);
-
-    printf("Sending packet %d\n", idx);
     z3d_socket.send(buf, idx);
 }
 

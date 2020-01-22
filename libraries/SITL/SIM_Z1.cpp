@@ -1,7 +1,7 @@
 /**
  * @brief Z1 Simulator class
  * @date Created Jan 17, 2020
- * @author Bertrand Bevillard <bertrand.bevillard@gmail.com>
+ * @author Bertrand Bevillard <bertrand@zenithaero.com>
  */
 
 #include "SIM_Z1.h"
@@ -275,6 +275,13 @@ void Z1::update(const struct sitl_input &input)
     update_wind(input);
 
     calculate_forces(input, rot_accel, accel_body);
+
+    // TEMP: rotate slowly around axes
+    // float rate = 3.14f / 4;
+    // Vector3f slowGyro(0, 0, 0);
+    // const float delta_time = frame_time_us * 1.0e-6f;
+    // dcm.rotate(slowGyro * delta_time);
+    // dcm.normalize();
 
     update_dynamics(rot_accel);
     update_external_payload(input);
