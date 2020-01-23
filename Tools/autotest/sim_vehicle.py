@@ -481,6 +481,7 @@ def run_in_terminal_window(autotest, name, cmd):
     """Execute the run_in_terminal_window.sh command for cmd"""
     global windowID
     runme = [os.path.join(autotest, "run_in_terminal_window.sh"), name]
+    runme.extend(['cd {};'.format(os.getcwd())])
     runme.extend(cmd)
     progress_cmd("Run " + name, runme)
 

@@ -24,7 +24,7 @@ if __name__ == "__main__":
         "--no-rebuild",
         "--aircraft",
         "ArduPlane",
-        "--wipe-eeprom",
+        # "--wipe-eeprom",
     ]
     if args.joystick:
         sim_cmds += ["--joystick"]
