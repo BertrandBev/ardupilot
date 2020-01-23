@@ -205,7 +205,7 @@ if nargin >= 2
                 funcFile = which('plot_google_map.m');
                 pth = fileparts(funcFile);
                 keyFile = fullfile(pth,'api_key.mat');
-                save(keyFile,'apiKey')
+                % save(keyFile,'apiKey')
             case 'style'
                 style = varargin{idx+1};
             otherwise
