@@ -20,7 +20,7 @@ if __name__ == "__main__":
         "-v",
         "ArduPlane",
         "-f",
-        "jsbsim",
+        "Z1",
         "--no-rebuild",
         "--aircraft",
         "ArduPlane",
@@ -32,7 +32,7 @@ if __name__ == "__main__":
         sim_cmds += ["--speedup", "10"]
     mav_cmds = [
         '--cmd-imu-ready "wp load /Users/bbevillard/Documents/Zenith/ardupilot/Tools/Zenith/flightplans/circuit.txt"',
-        # '--cmd-fp-ready "arm throttle"'
+        '--cmd-fp-ready "mode auto; arm throttle"'
     ]
     mav_args = ["--mavproxy-args", json.dumps(" ".join(mav_cmds))] if args.fp else []
     # print(" ".join(mav_args)); exit(-1)

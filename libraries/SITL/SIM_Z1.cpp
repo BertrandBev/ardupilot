@@ -203,12 +203,12 @@ void Z1::calculate_forces(const struct sitl_input &input, Vector3f &rot_accel, V
     if (!launch_start_ms && input.servos[6] > 1700)
         launch_start_ms = now;
 
-    // fake a vtail plane
-    float ch1 = elevator;
-    float ch2 = rudder;
-    // this matches VTAIL_OUTPUT==2
-    elevator = (ch2 - ch1) / 2.0f;
-    rudder = (ch2 + ch1) / 2.0f;
+    // // fake a vtail plane
+    // float ch1 = elevator;
+    // float ch2 = rudder;
+    // // this matches VTAIL_OUTPUT==2
+    // elevator = (ch2 - ch1) / 2.0f;
+    // rudder = (ch2 + ch1) / 2.0f;
 
     if (dspoilers)
     {
@@ -236,6 +236,7 @@ void Z1::calculate_forces(const struct sitl_input &input, Vector3f &rot_accel, V
 
     if (launch_start_ms > 0 && now - launch_start_ms < launch_time * 1000)
     {
+        printf("LAUNCH FORCE\n");
         // Simulate launch setup
         float launch_accel = launch_speed / launch_time;
         force.x += launch_accel;

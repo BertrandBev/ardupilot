@@ -96,3 +96,9 @@ protected:
     void calculate_forces(const struct sitl_input &input, Vector3f &rot_accel, Vector3f &body_accel);
 };
 } // namespace SITL
+
+
+// RCMAP_PITCH	     3
+// RCMAP_ROLL	     2
+// RCMAP_THROTTLE	 1
+// RCMAP_YAW	     4
