@@ -10,7 +10,7 @@ ROOT_DIR = os.path.join(dirname(__file__), "../../..")
 MAVLOG_PATH = os.path.join(ROOT_DIR, "modules/mavlink/pymavlink/tools/mavlogdump.py")
 
 LOG_PATH = (
-    "/Users/bbevillard/Documents/Zenith/ardupilot/ArduPlane/logs/2020-01-21/flight14/flight.tlog"
+    "/Users/bbevillard/Documents/Zenith/ardupilot/Tools/Zenith/sim/logs/00000002.BIN"
 )
 
 if __name__ == "__main__":
