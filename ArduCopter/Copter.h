@@ -67,6 +67,8 @@
 #include <AP_TempCalibration/AP_TempCalibration.h>
 #include <AC_AutoTune/AC_AutoTune.h>
 #include <AP_Common/AP_FWVersion.h>
+#include <AP_Parachute/AP_Parachute.h>
+#include <AC_Sprayer/AC_Sprayer.h>
 
 // Configuration
 #include "defines.h"
@@ -107,14 +109,8 @@
  #include <AC_WPNav/AC_WPNav_OA.h>
  #include <AC_Avoidance/AP_OAPathPlanner.h>
 #endif
-#if SPRAYER_ENABLED == ENABLED
- # include <AC_Sprayer/AC_Sprayer.h>
-#endif
 #if GRIPPER_ENABLED == ENABLED
  # include <AP_Gripper/AP_Gripper.h>
-#endif
-#if PARACHUTE == ENABLED
- # include <AP_Parachute/AP_Parachute.h>
 #endif
 #if PRECISION_LANDING == ENABLED
  # include <AC_PrecLand/AC_PrecLand.h>
@@ -980,7 +976,6 @@ private:
     void exit_mode(Mode *&old_flightmode, Mode *&new_flightmode);
 
 public:
-    void mavlink_delay_cb();    // GCS_Mavlink.cpp
     void failsafe_check();      // failsafe.cpp
 };
 

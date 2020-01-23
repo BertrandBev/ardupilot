@@ -3058,8 +3058,8 @@ class AutoTest(ABC):
                     self.mavproxy.send('dataflash_logger status\n')
                     # seen on autotest: Active Rate(3s):97.790kB/s Block:164 Missing:0 Fixed:0 Abandoned:0
                     self.mavproxy.expect("Active Rate\([0-9]s\):([0-9]+[.][0-9]+)")
-                    rate = self.mavproxy.match.group(1)
-                    self.progress("Rate: %f" % float(rate))
+                    rate = float(self.mavproxy.match.group(1))
+                    self.progress("Rate: %f" % rate)
                     if rate < 50:
                         raise NotAchievedException("Exceptionally low transfer rate")
             self.disarm_vehicle()
@@ -4054,7 +4054,19 @@ switch value'''
             self.assert_capability(mavutil.mavlink.MAV_PROTOCOL_CAPABILITY_FLIGHT_TERMINATION)
             self.set_parameter("AFS_TERM_ACTION", 42)
             self.load_sample_mission()
-            self.change_mode("AUTO") # must go to auto for AFS to latch on
+            messages = []
+            def my_message_hook(mav, m):
+                if m.get_type() != 'STATUSTEXT':
+                    return
+                messages.append(m)
+            self.install_message_hook(my_message_hook)
+            try:
+                self.change_mode("AUTO") # must go to auto for AFS to latch on
+            finally:
+                self.remove_message_hook(my_message_hook)
+
+            if "AFS State: AFS_AUTO" not in [x.text for x in messages]:
+                self.wait_statustext("AFS State: AFS_AUTO")
             self.change_mode("MANUAL")
             self.start_subtest("RC Failure")
             self.set_parameter("AFS_RC_FAIL_TIME", 1)
@@ -4446,9 +4458,9 @@ switch value'''
 
         fft_len = len(messages[0].data["X"])
         sum_fft = {
-                "X": numpy.zeros(fft_len/2+1),
-                "Y": numpy.zeros(fft_len/2+1),
-                "Z": numpy.zeros(fft_len/2+1),
+                "X": numpy.zeros(int(fft_len/2+1)),
+                "Y": numpy.zeros(int(fft_len/2+1)),
+                "Z": numpy.zeros(int(fft_len/2+1)),
             }
         sample_rate = 0
         counts = 0
